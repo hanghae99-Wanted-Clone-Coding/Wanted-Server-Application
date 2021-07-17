@@ -1,11 +1,9 @@
 package com.hanghae99.wanted.web.controller;
 
-import com.hanghae99.wanted.service.ApiJobGroupService;
-import com.hanghae99.wanted.web.dto.response.JobGroupResponse;
-import java.util.List;
+import com.hanghae99.wanted.service.ApiOpeningService;
+import com.hanghae99.wanted.web.dto.response.OpeningApiPagingResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -19,17 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2021/07/17
  */
 
+
 @Slf4j
-@RequestMapping("/api/job-groups")
 @RequiredArgsConstructor
+@RequestMapping("/api/openings")
 @RestController
-public class ApiJobGroupController {
+public class ApiOpeningController {
 
-    private final ApiJobGroupService apiJobGroupService;
+    private final ApiOpeningService openingService;
 
-    @Cacheable(value = "jobGroup")
     @GetMapping("")
-    public ResponseEntity<List<JobGroupResponse>> finAll() {
-        return ResponseEntity.ok().body(apiJobGroupService.findAll());
+    public ResponseEntity<OpeningApiPagingResponse> findAllOpeningUsePaging(@PageableDefault (size = 20, sort = {"createdAt"}, direction = Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok().body(openingService.findAllOpeningUsePaging(pageable));
     }
 }
