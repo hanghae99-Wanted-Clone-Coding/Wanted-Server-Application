@@ -44,4 +44,13 @@ public class User {
         this.profileUrl = profileUrl;
     }
 
+    @Builder(builderMethodName = "kakaoUserBuilder")
+    public User ( Long kakaoId, String email, String password, String nickName,
+        String profileUrl ) {
+        this.kakaoId = kakaoId;
+        this.email = email;
+        this.password = password;
+        this.nickName = nickName;
+        this.profileUrl = profileUrl;
+    }
 }

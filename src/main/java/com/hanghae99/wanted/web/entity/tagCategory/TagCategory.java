@@ -1,4 +1,4 @@
-package com.hanghae99.wanted.web.entity.jobgroup;
+package com.hanghae99.wanted.web.entity.tagCategory;
 
 import com.hanghae99.wanted.web.entity.BaseTimeEntity;
 import javax.persistence.Column;
@@ -13,23 +13,24 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Created by Bloo
- * @Date: 2021/07/16
+ * @Date: 2021/07/17
  */
+
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class JobGroup extends BaseTimeEntity {
+public class TagCategory extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String name;
 
     @Builder
-    public JobGroup ( String name ) {
+    public TagCategory ( String name ) {
         this.name = name;
     }
 }
