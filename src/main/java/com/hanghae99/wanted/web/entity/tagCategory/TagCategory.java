@@ -11,12 +11,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 /**
- * @Created by Bloo
- * @Date: 2021/07/17
+ * 상위 카테고리 클래스는 사용하지 않을 것으로 예상됩니다. Created by Bloo, 21/07/17
+ * @deprecated
+ * @author Bloo
+ * @author Seungyeon Kang
  */
-
-
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
