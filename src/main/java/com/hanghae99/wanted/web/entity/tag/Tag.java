@@ -24,14 +24,25 @@ import lombok.NoArgsConstructor;
 public class Tag extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "NAME")
     private String name;
 
+    @JoinColumn(name = "OPENING_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Opening opening;
+
+    @JoinColumn(name = "TAG_CTGRY_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TagCategory tagCategory;
+
     @Builder
-    public Tag ( String name) {
+    public Tag(String name, Opening opening, TagCategory tagCategory) {
         this.name = name;
+        this.opening = opening;
+        this.tagCategory = tagCategory;
     }
 }
+

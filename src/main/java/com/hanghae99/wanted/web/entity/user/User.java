@@ -2,6 +2,7 @@ package com.hanghae99.wanted.web.entity.user;
 
 import javax.persistence.*;
 
+import com.hanghae99.wanted.web.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "USER_TB")
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -44,20 +45,22 @@ public class User {
     //private Set<Authority> authorities = new HashSet<>();
 
     @Builder
-    public User ( String email, String password, String nickName, String profileUrl ) {
+    public User ( String email, String password, String nickName, String profileUrl, char userRole ) {
         this.email = email;
         this.password = password;
         this.nickName = nickName;
         this.profileUrl = profileUrl;
+        this.userRole = userRole;
     }
 
     @Builder(builderMethodName = "kakaoUserBuilder")
     public User ( Long kakaoId, String email, String password, String nickName,
-        String profileUrl ) {
+        String profileUrl, char userRole ) {
         this.kakaoId = kakaoId;
         this.email = email;
         this.password = password;
         this.nickName = nickName;
         this.profileUrl = profileUrl;
+        this.userRole = userRole;
     }
 }
