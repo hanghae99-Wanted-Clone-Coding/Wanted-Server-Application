@@ -44,8 +44,6 @@ public class ApiOpeningService {
         return OpeningApiPagingResponse.of (pagination, openingApiResponses);
     }
 
-
-
     private Pagination createPagination ( Page<Opening> openings ) {
         return Pagination.builder()
             .totalPages(openings.getTotalPages())
