@@ -1,37 +1,44 @@
 package com.hanghae99.wanted.web.entity.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * @Created by Bloo
- * @Date: 2021/07/16
+ * CloneProject.USER_TB와 매핑되는 Entity 클래스입니다. Created by Bloo, 21/07/16
+ * @author Bloo
+ * @author Seungyeon Kang
  */
-
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@Table(name = "USER_TB")
 public class User {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "KAKAO_ID")
     private Long kakaoId;
 
+    @Column(name = "EMAIL")
     private String email;
 
+    @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "NICK_NAME")
     private String nickName;
 
+    @Column(name = "PROFILE_URL")
     private String profileUrl;
+
+    @Column(name = "USER_ROLE")
+    private char userRole;
 
     // TODO: 2021.07.16 -Blue  Security  세팅 후 적용 해주세요
     //private Set<Authority> authorities = new HashSet<>();

@@ -30,24 +30,8 @@ public class Tag extends BaseTimeEntity {
     @Column(name = "NAME")
     private String name;
 
-    // TODO: DB 변경에 따른 주석 처리되는 것이 맞는지 확인하기
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Opening opening;
-//
-//    @ManyToOne (fetch = FetchType.LAZY)
-//    private TagCategory tagCategory;
-
     @Builder
     public Tag ( String name) {
         this.name = name;
-//        this.opening = opening;
-//        this.tagCategory = tagCategory;
     }
-
-//    @Builder
-//    public Tag ( String name, Opening opening, TagCategory tagCategory ) {
-//        this.name = name;
-//        this.opening = opening;
-//        this.tagCategory = tagCategory;
-//    }
 }

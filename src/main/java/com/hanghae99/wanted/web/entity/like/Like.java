@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "TAG_TB")
+@Table(name = "LIKE_TB")
 public class Like extends BaseTimeEntity {
 
     @Id
