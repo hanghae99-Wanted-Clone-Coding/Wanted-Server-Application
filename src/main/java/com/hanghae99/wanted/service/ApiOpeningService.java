@@ -29,19 +29,35 @@ public class ApiOpeningService {
     @Transactional(readOnly = true)
     public OpeningApiPagingResponse findAllOpeningUsePaging( Pageable pageable )  {
         Page<Opening> openings =  openingRepository.findAll(pageable);
+        List<OpeningApiResponse> openingApiResponses = createOpeningApiResponses(openings);
+        Pagination pagination = createPagination(openings);
 
-        List<OpeningApiResponse> openingApiResponses = openings
-            .stream()
-            .map(OpeningApiResponse::of)
-            .collect(Collectors.toList());
+        return OpeningApiPagingResponse.of (pagination, openingApiResponses);
+    }
 
-        Pagination pagination = Pagination.builder()
+    @Transactional(readOnly = true)
+    public OpeningApiPagingResponse findAllOpeningsByJobGroupId(Long id, Pageable pageable) {
+        Page<Opening> openings = openingRepository.findAllByJobGroupId(id, pageable);
+        List<OpeningApiResponse> openingApiResponses = createOpeningApiResponses(openings);
+        Pagination pagination = createPagination(openings);
+
+        return OpeningApiPagingResponse.of (pagination, openingApiResponses);
+    }
+
+    private Pagination createPagination ( Page<Opening> openings ) {
+        return Pagination.builder()
             .totalPages(openings.getTotalPages())
             .totalElements(openings.getTotalElements())
             .currentPage(openings.getTotalPages())
             .currentElements(openings.getNumberOfElements())
             .build();
-
-        return OpeningApiPagingResponse.of (pagination, openingApiResponses);
     }
+
+    private List<OpeningApiResponse> createOpeningApiResponses ( Page<Opening> openings ) {
+        return openings
+            .stream()
+            .map(OpeningApiResponse::of)
+            .collect(Collectors.toList());
+    }
+
 }

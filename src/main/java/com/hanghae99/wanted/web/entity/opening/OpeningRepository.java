@@ -1,6 +1,7 @@
 package com.hanghae99.wanted.web.entity.opening;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Bloo
  */
 public interface OpeningRepository extends JpaRepository<Opening, Long> {
-
+    public Page<Opening> findAllByJobGroupId ( Long jobGroup_id, Pageable pageable );
 }
