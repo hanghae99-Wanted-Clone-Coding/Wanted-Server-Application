@@ -43,4 +43,11 @@ public class ApiOpeningController {
         return ResponseEntity.ok().body(openingService.findAllOpeningsByJobGroupId(id, pageable));
     }
 
+    /**
+     * 경력 별 채용공고 조회
+     */
+    @GetMapping("{req-career}")
+    public ResponseEntity<OpeningApiPagingResponse> findAllOpeningsByCareer (@PathVariable("req-career") String reqCareer) {
+        return ResponseEntity.ok().body(openingService.findAllOpeningsByCareer(reqCareer));
+    }
 }

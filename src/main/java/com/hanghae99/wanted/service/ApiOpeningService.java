@@ -26,6 +26,9 @@ public class ApiOpeningService {
 
     private final OpeningRepository openingRepository;
 
+    /**
+     * 모든 채용공고 최신순 조회
+     */
     @Transactional(readOnly = true)
     public OpeningApiPagingResponse findAllOpeningUsePaging( Pageable pageable )  {
         Page<Opening> openings =  openingRepository.findAll(pageable);
@@ -35,6 +38,9 @@ public class ApiOpeningService {
         return OpeningApiPagingResponse.of (pagination, openingApiResponses);
     }
 
+    /**
+     * Job Group 별 채용공고 조회
+     */
     @Transactional(readOnly = true)
     public OpeningApiPagingResponse findAllOpeningsByJobGroupId(Long id, Pageable pageable) {
         Page<Opening> openings = openingRepository.findAllByJobGroupId(id, pageable);
@@ -43,6 +49,19 @@ public class ApiOpeningService {
 
         return OpeningApiPagingResponse.of (pagination, openingApiResponses);
     }
+
+    /**
+     * 경력별 채용공고 조회
+     */
+    @Transactional(readOnly = true)
+    public OpeningApiPagingResponse findAllOpeningsByCareer ( String reqCareer ) {
+        Page<Opening> openings = openingRepository.findAllByReqCareer(reqCareer);
+        List<OpeningApiResponse> openingApiResponses = createOpeningApiResponses(openings);
+        Pagination pagination = createPagination(openings);
+
+        return OpeningApiPagingResponse.of (pagination, openingApiResponses);
+    }
+
 
     private Pagination createPagination ( Page<Opening> openings ) {
         return Pagination.builder()
@@ -59,5 +78,6 @@ public class ApiOpeningService {
             .map(OpeningApiResponse::of)
             .collect(Collectors.toList());
     }
+
 
 }
