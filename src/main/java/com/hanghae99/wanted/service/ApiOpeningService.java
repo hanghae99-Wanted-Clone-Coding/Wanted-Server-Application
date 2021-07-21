@@ -36,6 +36,7 @@ public class ApiOpeningService {
      */
     @Transactional(readOnly = true)
     public OpeningApiPagingResponse findAllOpeningUsePaging( Pageable pageable )  {
+        //TODO No enum constant com.hanghae99.wanted.util.enumclass.ReqCareer.career
         Page<Opening> openings =  openingRepository.findAll(pageable);
         List<OpeningApiResponse> openingApiResponses = createOpeningApiResponses(openings);
         Pagination pagination = createPagination(openings);

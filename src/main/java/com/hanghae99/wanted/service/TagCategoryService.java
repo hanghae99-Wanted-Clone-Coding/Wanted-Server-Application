@@ -26,5 +26,4 @@ public class TagCategoryService {
             .map(TagCategoryResponse::of)
             .collect(Collectors.toList());
     }
-
 }

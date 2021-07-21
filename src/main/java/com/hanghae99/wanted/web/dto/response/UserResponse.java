@@ -1,5 +1,6 @@
 package com.hanghae99.wanted.web.dto.response;
 
+import com.hanghae99.wanted.util.enumclass.UserRole;
 import com.hanghae99.wanted.web.entity.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,19 +13,24 @@ import lombok.NoArgsConstructor;
 public class UserResponse {
 
     private Long id;
-    private String nickName;
+    private String name;
     private String email;
+    private UserRole userRole;
+
 
     @Builder
-    public UserResponse ( Long id, String nickName ) {
+    public UserResponse ( Long id, String name, String email, UserRole userRole ) {
         this.id = id;
-        this.nickName = nickName;
+        this.name = name;
+        this.email = email;
+        this.userRole = userRole;
     }
 
     public static UserResponse of ( User user ) {
         return UserResponse.builder()
                 .id(user.getId())
-                .nickName(user.getNickName())
+                .name(user.getName())
+                .email(user.getEmail())
                 .build();
     }
 }
