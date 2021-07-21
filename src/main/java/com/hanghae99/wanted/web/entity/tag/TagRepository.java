@@ -1,6 +1,8 @@
 package com.hanghae99.wanted.web.entity.tag;
 
 import java.util.List;
+
+import com.hanghae99.wanted.web.entity.tagCategory.TagCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,6 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Bloo
  */
 public interface TagRepository extends JpaRepository<Tag, Long> {
-
-    public List<Tag> findAllByCategoryId (Long categoryId);
+//    public List<Tag> findAllbyTagCategory (TagCategory tagCategory);
 }

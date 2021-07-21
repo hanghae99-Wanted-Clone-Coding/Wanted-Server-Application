@@ -27,8 +27,8 @@ public class ApiTagController {
     /**
      *  Tag Category 별 Tag 조회
      */
-    @GetMapping("/{tag-category-id}")
-    public ResponseEntity<List<TagResponse>> findTagByCategoryId(@PathVariable("tag-category-id") Long id ) {
-        return ResponseEntity.ok().body(tagService.findTagByCategoryId(id));
-    }
+//    @GetMapping("/{tag-category-id}")
+//    public ResponseEntity<List<TagResponse>> findTagByCategoryId(@PathVariable("tag-category-id") Long id ) {
+//        return ResponseEntity.ok().body(tagService.findTagByCategoryId(id));
+//    }
 }
