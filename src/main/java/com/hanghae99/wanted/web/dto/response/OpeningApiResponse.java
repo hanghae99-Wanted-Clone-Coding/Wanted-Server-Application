@@ -24,12 +24,10 @@ public class OpeningApiResponse {
     private String companyName;
     private String location;
     private int likeCount;
-    private LocalDateTime createdAt;
 
     @Builder
     public OpeningApiResponse (Long openingId, Long jobGroupId,
-        String imgUrl, String title, String companyName, String location, int likeCount,
-        LocalDateTime createdAt ) {
+        String imgUrl, String title, String companyName, String location, int likeCount) {
 
         this.openingId = openingId;
         this.jobGroupId = jobGroupId;
@@ -38,8 +36,6 @@ public class OpeningApiResponse {
         this.companyName = companyName;
         this.location = location;
         this.likeCount = likeCount;
-        this.createdAt = createdAt;
-
     }
 
     public static OpeningApiResponse of ( Opening opening ) {
@@ -51,7 +47,6 @@ public class OpeningApiResponse {
             .companyName(opening.getCompany().getName())
             .location(opening.getCompany().getAddress())
             .likeCount(opening.getLikeCount())
-            .createdAt(opening.getCreatedAt())
             .build();
     }
 }

@@ -24,17 +24,14 @@ public class User extends BaseTimeEntity {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, name = "KAKAO_ID")
-    private Long kakaoId;
-
     @Column(nullable = false, name = "EMAIL")
     private String email;
 
     @Column(nullable = false, name = "PASSWORD")
     private String password;
 
-    @Column(nullable = false, name = "NICK_NAME")
-    private String nickName;
+    @Column(name = "NAME")
+    private String name;
 
     @Column(name = "PROFILE_URL")
     private String profileUrl;
@@ -48,7 +45,6 @@ public class User extends BaseTimeEntity {
     public User ( String email, String password, String nickName, String profileUrl, UserRole userRole ) {
         this.email = email;
         this.password = password;
-        this.nickName = nickName;
         this.profileUrl = profileUrl;
         this.userRole = userRole;
     }
@@ -56,10 +52,8 @@ public class User extends BaseTimeEntity {
     @Builder(builderMethodName = "kakaoUserBuilder")
     public User ( Long kakaoId, String email, String password, String nickName,
         String profileUrl, UserRole userRole ) {
-        this.kakaoId = kakaoId;
         this.email = email;
         this.password = password;
-        this.nickName = nickName;
         this.profileUrl = profileUrl;
         this.userRole = userRole;
     }

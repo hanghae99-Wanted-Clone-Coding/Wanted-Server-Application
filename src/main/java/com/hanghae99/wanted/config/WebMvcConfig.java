@@ -2,20 +2,18 @@ package com.hanghae99.wanted.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
+@EnableWebMvc
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private final long MAX_AGE_SECS = 3600;
-
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(MAX_AGE_SECS);
+    public void addCorsMappings( CorsRegistry registry) {
+        registry.addMapping("/**") //cors를 적용할 URL패턴 정의
+            .allowedOriginPatterns("*") //자원 공유 허락할 Origin 허락
+            .allowedMethods("*") //허락할 HTTP method 지정
+            .allowCredentials(true)
+            .allowedHeaders("*");
     }
 }
