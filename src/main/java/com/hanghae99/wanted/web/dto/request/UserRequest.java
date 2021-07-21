@@ -20,9 +20,10 @@ public class UserRequest {
 
 
     @Builder
-    public UserRequest ( String email, String password ) {
+    public UserRequest ( String email, String password, String name ) {
         this.email = email;
         this.password = password;
+        this.name = name;
     }
 
     public User toUser(PasswordEncoder passwordEncoder) {
