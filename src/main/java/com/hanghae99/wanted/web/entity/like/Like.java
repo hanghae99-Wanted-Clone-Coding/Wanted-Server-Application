@@ -29,10 +29,6 @@ public class Like extends BaseTimeEntity {
     @ManyToOne (fetch = FetchType.LAZY)
     private User user;
 
-    @JoinColumn(name = "COMPANY_ID")
-    @ManyToOne (fetch = FetchType.LAZY)
-    private Company company;
-
     @JoinColumn(name = "OPENING_ID")
     @ManyToOne (fetch = FetchType.LAZY)
     private Opening opening;
@@ -40,7 +36,6 @@ public class Like extends BaseTimeEntity {
     @Builder
     public Like (User user, Company company, Opening opening ) {
         this.user = user;
-        this.company = company;
         this.opening = opening;
     }
 }
