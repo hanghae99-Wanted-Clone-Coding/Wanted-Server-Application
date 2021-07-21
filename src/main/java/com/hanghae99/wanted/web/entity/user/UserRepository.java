@@ -3,12 +3,15 @@ package com.hanghae99.wanted.web.entity.user;
 import javax.jws.soap.SOAPBinding.Use;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 /**
- * @Created by Bloo
- * @Date: 2021/07/16
+ * User JPA Repository
+ * @Author: 강승연
  */
 
 
 public interface UserRepository extends JpaRepository<User, Long> {
-
+    Optional<User> findByKakaoId(Long kakaoid);
+    Optional<User> findByEmail(String email);
 }
