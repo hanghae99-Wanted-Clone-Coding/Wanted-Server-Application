@@ -1,7 +1,10 @@
 package com.hanghae99.wanted.service;
 
+import com.hanghae99.wanted.exception.TagCategoryNotFoundException;
 import com.hanghae99.wanted.web.dto.response.TagResponse;
 import com.hanghae99.wanted.web.entity.tag.TagRepository;
+import com.hanghae99.wanted.web.entity.tagCategory.TagCategory;
+import com.hanghae99.wanted.web.entity.tagCategory.TagCategoryRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,13 +25,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class ApiTagService {
 
     private final TagRepository tagRepository;
+    private final TagCategoryRepository tagCategoryRepository;
 
-//    @Transactional (readOnly = true)
-//    public List<TagResponse> findTagByCategoryId ( Long id ) {
-//        TagCategory tagCategory = id;
-//        return tagRepository.findAllbyTagCategory(id)
-//            .stream()
-//            .map(TagResponse::of)
-//            .collect(Collectors.toList());
-//    }
+
+    @Transactional (readOnly = true)
+    public List<TagResponse> findTagByCategoryId ( Long id ) {
+
+        TagCategory tagCategory = tagCategoryRepository.findById(id)
+            .orElseThrow(TagCategoryNotFoundException::new);
+
+        return tagRepository.findAllByTagCategory(tagCategory)
+            .stream()
+            .map(TagResponse::of)
+            .collect(Collectors.toList());
+    }
+
 }
