@@ -30,24 +30,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // CSRF 설정 Disable
-//        http.csrf().disable()
-//                // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
+         //CSRF 설정 Disable
+        http.csrf().disable();
+                // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
 //                .addFilter(corsConfig.corsFilter());
 
-//        http.exceptionHandling()
-//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//                .accessDeniedHandler(jwtAccessDeniedHandler);
+        http.exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler);
 
-//        http.sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
         // 토큰이 없는 상태에서 들어오니까 지금은 가정하고 permitAll 설정 -> 나중에 없는 부분만 따로
         http
                 .authorizeRequests()
 //                .antMatchers("/api/**").permitAll()
-                .anyRequest().permitAll();   // 나머지 API 는 전부 인증 필요
+                .anyRequest().permitAll()   // 나머지 API 는 전부 인증 필요
+
+                .and()
+                .apply(new JwtSecurityConfig(tokenProvider));
 
         //하위 user까지
     }
