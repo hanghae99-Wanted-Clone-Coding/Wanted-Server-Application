@@ -54,8 +54,8 @@ public class ApiOpeningService {
      * 경력별 채용공고 조회
      */
     @Transactional(readOnly = true)
-    public OpeningApiPagingResponse findAllOpeningsByCareer ( String reqCareer ) {
-        Page<Opening> openings = openingRepository.findAllByReqCareer(reqCareer);
+    public OpeningApiPagingResponse findAllOpeningsByCareer ( String reqCareer, Pageable pageable ) {
+        Page<Opening> openings = openingRepository.findAllByReqCareer(reqCareer, pageable);
         List<OpeningApiResponse> openingApiResponses = createOpeningApiResponses(openings);
         Pagination pagination = createPagination(openings);
 

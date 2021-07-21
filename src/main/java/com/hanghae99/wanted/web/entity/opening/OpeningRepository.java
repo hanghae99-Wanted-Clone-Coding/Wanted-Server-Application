@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface OpeningRepository extends JpaRepository<Opening, Long> {
     Page<Opening> findAllByJobGroupId ( Long jobGroup_id, Pageable pageable );
-    Page<Opening> findAllByReqCareer(String reqCareer);
+    Page<Opening> findAllByReqCareer(String reqCareer, Pageable pageable);
 }
