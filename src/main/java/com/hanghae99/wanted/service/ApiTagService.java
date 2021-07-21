@@ -7,6 +7,8 @@ import com.hanghae99.wanted.web.entity.tagCategory.TagCategory;
 import com.hanghae99.wanted.web.entity.tagCategory.TagCategoryRepository;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.hanghae99.wanted.web.entity.tagCategory.TagCategory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ public class ApiTagService {
     private final TagRepository tagRepository;
     private final TagCategoryRepository tagCategoryRepository;
 
+
     @Transactional (readOnly = true)
     public List<TagResponse> findTagByCategoryId ( Long id ) {
 
@@ -36,4 +39,5 @@ public class ApiTagService {
             .map(TagResponse::of)
             .collect(Collectors.toList());
     }
+
 }

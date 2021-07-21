@@ -2,6 +2,7 @@ package com.hanghae99.wanted.web.entity.user;
 
 import javax.persistence.*;
 
+import com.hanghae99.wanted.util.enumclass.UserRole;
 import com.hanghae99.wanted.web.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,29 +24,28 @@ public class User extends BaseTimeEntity {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "KAKAO_ID")
+    @Column(nullable = false, name = "KAKAO_ID")
     private Long kakaoId;
 
-    @Column(name = "EMAIL")
+    @Column(nullable = false, name = "EMAIL")
     private String email;
 
-    @Column(name = "PASSWORD")
+    @Column(nullable = false, name = "PASSWORD")
     private String password;
 
-    @Column(name = "NICK_NAME")
+    @Column(nullable = false, name = "NICK_NAME")
     private String nickName;
 
     @Column(name = "PROFILE_URL")
     private String profileUrl;
 
-    @Column(name = "USER_ROLE")
-    private char userRole;
-
     // TODO: 2021.07.16 -Blue  Security  세팅 후 적용 해주세요
-    //private Set<Authority> authorities = new HashSet<>();
+    //TODO: 07.20 enumerated class 구조 관련 얘기해보기
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     @Builder
-    public User ( String email, String password, String nickName, String profileUrl, char userRole ) {
+    public User ( String email, String password, String nickName, String profileUrl, UserRole userRole ) {
         this.email = email;
         this.password = password;
         this.nickName = nickName;
@@ -55,7 +55,7 @@ public class User extends BaseTimeEntity {
 
     @Builder(builderMethodName = "kakaoUserBuilder")
     public User ( Long kakaoId, String email, String password, String nickName,
-        String profileUrl, char userRole ) {
+        String profileUrl, UserRole userRole ) {
         this.kakaoId = kakaoId;
         this.email = email;
         this.password = password;

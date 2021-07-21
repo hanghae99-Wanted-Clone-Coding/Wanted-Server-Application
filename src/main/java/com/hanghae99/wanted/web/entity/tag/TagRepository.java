@@ -14,10 +14,12 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
+
     List<Tag> findAllByTagCategory ( TagCategory tagCategory );
 
     Page<Tag> findAllByName ( String name, Pageable pageable );
 
     @Query("select t from Tag t where t.opening.id =: id")
     List<Tag> findAllByOpeningId ( Long id );
+
 }
