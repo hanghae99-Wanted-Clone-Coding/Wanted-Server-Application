@@ -64,7 +64,7 @@ public class ApiOpeningController {
     /**
      *  태그 명으로 채용공고 조회
      */
-    @GetMapping("")
+    @GetMapping("/search")
     public ResponseEntity<OpeningApiPagingResponse> findAllOpeningsByTag(
         @RequestParam(value = "tagName", required = true) String name,
         @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
