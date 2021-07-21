@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -54,5 +55,16 @@ public class ApiOpeningController {
         @PathVariable ("req-career") String reqCareer,
         @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
         return ResponseEntity.ok().body(openingService.findAllOpeningsByCareer(reqCareer, pageable));
+    }
+
+    /**
+     *  태그 명으로 채용공고 조회
+     */
+    @GetMapping("")
+    public ResponseEntity<OpeningApiPagingResponse> findAllOpeningsByTag(
+        @RequestParam(value = "tagName", required = true) String name,
+        @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
+
+        return ResponseEntity.ok().body(openingService.findAllOpeningByTagName(name, pageable));
     }
 }
