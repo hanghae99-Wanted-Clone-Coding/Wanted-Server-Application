@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * CloneProject.USER_TB와 매핑되는 Entity 클래스입니다. Created by Bloo, 21/07/16
@@ -24,37 +25,24 @@ public class User extends BaseTimeEntity {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, name = "NAME")
+    private String name;
+
     @Column(nullable = false, name = "EMAIL")
     private String email;
 
     @Column(nullable = false, name = "PASSWORD")
     private String password;
 
-    @Column(name = "NAME")
-    private String name;
-
-    @Column(name = "PROFILE_URL")
-    private String profileUrl;
-
-    // TODO: 2021.07.16 -Blue  Security  세팅 후 적용 해주세요
-    //TODO: 07.20 enumerated class 구조 관련 얘기해보기
+    @Column(name = "USER_ROLE")
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
     @Builder
-    public User ( String email, String password, String nickName, String profileUrl, UserRole userRole ) {
+    public User ( String email, String password, String name, UserRole userRole ) {
         this.email = email;
+        this.name = name;
         this.password = password;
-        this.profileUrl = profileUrl;
-        this.userRole = userRole;
-    }
-
-    @Builder(builderMethodName = "kakaoUserBuilder")
-    public User ( Long kakaoId, String email, String password, String nickName,
-        String profileUrl, UserRole userRole ) {
-        this.email = email;
-        this.password = password;
-        this.profileUrl = profileUrl;
         this.userRole = userRole;
     }
 }
