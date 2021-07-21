@@ -1,6 +1,7 @@
 package com.hanghae99.wanted.web.controller;
 
 import com.hanghae99.wanted.service.ApiOpeningService;
+import com.hanghae99.wanted.web.dto.response.OpeningApiDetailResponse;
 import com.hanghae99.wanted.web.dto.response.OpeningApiPagingResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,7 @@ public class ApiOpeningController {
     public ResponseEntity<OpeningApiPagingResponse> findAllOpeningsByJobGroupId (
         @PathVariable (name = "jobgroup-id") Long id,
         @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
+        log.info("Job Group Id >>> {}", id);
         return ResponseEntity.ok().body(openingService.findAllOpeningsByJobGroupId(id, pageable));
     }
 
@@ -54,6 +56,8 @@ public class ApiOpeningController {
     public ResponseEntity<OpeningApiPagingResponse> findAllOpeningsByCareer (
         @PathVariable ("req-career") String reqCareer,
         @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
+
+        log.info("Req Career >>> {}", reqCareer);
         return ResponseEntity.ok().body(openingService.findAllOpeningsByCareer(reqCareer, pageable));
     }
 
@@ -64,7 +68,16 @@ public class ApiOpeningController {
     public ResponseEntity<OpeningApiPagingResponse> findAllOpeningsByTag(
         @RequestParam(value = "tagName", required = true) String name,
         @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
-
+        log.info("Tag Name >>> {}", name);
         return ResponseEntity.ok().body(openingService.findAllOpeningByTagName(name, pageable));
+    }
+
+    /**
+     * 채용공고 상세 조회 구현
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<OpeningApiDetailResponse> findById(@PathVariable Long id) {
+        log.info("ID >>>> {}", id);
+        return ResponseEntity.ok().body(openingService.findOpeningDetailById(id));
     }
 }

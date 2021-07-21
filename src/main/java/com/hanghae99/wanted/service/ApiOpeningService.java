@@ -1,5 +1,7 @@
 package com.hanghae99.wanted.service;
 
+import com.hanghae99.wanted.exception.OpeningNotFoundException;
+import com.hanghae99.wanted.web.dto.response.OpeningApiDetailResponse;
 import com.hanghae99.wanted.web.dto.response.OpeningApiPagingResponse;
 import com.hanghae99.wanted.web.dto.response.OpeningApiResponse;
 import com.hanghae99.wanted.web.dto.response.Pagination;
@@ -81,7 +83,14 @@ public class ApiOpeningService {
         Pagination pagination = createPagination(tags);
 
         return OpeningApiPagingResponse.of (pagination, openingApiResponses);
+    }
 
+    @Transactional
+    public OpeningApiDetailResponse findOpeningDetailById ( Long id ) {
+        Opening opening = openingRepository.findById(id).orElseThrow(OpeningNotFoundException::new);
+        List<Tag> tags = tagRepository.findAllByOpeningId(id);
+
+        return OpeningApiDetailResponse.of (opening, tags);
     }
 
     private Pagination createPagination ( Page<?> openings ) {

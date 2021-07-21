@@ -40,6 +40,12 @@ public class Opening extends BaseTimeEntity {
     @Column (nullable = false, name = "IMG_URL")
     private String imgUrl;
 
+    @Column (nullable = false, name = "LOCATION")
+    private String location;
+
+    @Column (nullable = false, name = "LOCATION_DETAIL")
+    private String locationDetail;
+
     @Column (nullable = false, name = "LIKE_CNT")
     private int likeCount;
 
@@ -52,12 +58,15 @@ public class Opening extends BaseTimeEntity {
     private JobGroup jobGroup;
 
     @Builder
-    public Opening ( String title, String content, ReqCareer reqCareer, String imgUrl, int likeCount,
+    public Opening ( String title, String content,
+        ReqCareer reqCareer, String imgUrl, String location, String locationDetail, int likeCount,
         Company company, JobGroup jobGroup ) {
         this.title = title;
         this.content = content;
         this.reqCareer = reqCareer;
         this.imgUrl = imgUrl;
+        this.location = location;
+        this.locationDetail = locationDetail;
         this.likeCount = likeCount;
         this.company = company;
         this.jobGroup = jobGroup;
