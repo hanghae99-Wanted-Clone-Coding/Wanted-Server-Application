@@ -1,5 +1,6 @@
 package com.hanghae99.wanted.web.entity.tag;
 
+import com.hanghae99.wanted.web.entity.opening.Opening;
 import com.hanghae99.wanted.web.entity.tagCategory.TagCategory;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,6 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 
     Page<Tag> findAllByName ( String name, Pageable pageable );
 
-    @Query("select t from Tag t where t.opening.id =: id")
-    List<Tag> findAllByOpeningId ( Long id );
+    List<Tag> findAllByOpening ( Opening opening );
 
 }

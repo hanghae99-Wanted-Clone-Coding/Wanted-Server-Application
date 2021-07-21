@@ -6,6 +6,7 @@ import com.hanghae99.wanted.web.dto.response.OpeningApiDetailResponse;
 import com.hanghae99.wanted.web.dto.response.OpeningApiPagingResponse;
 import com.hanghae99.wanted.web.dto.response.OpeningApiResponse;
 import com.hanghae99.wanted.web.dto.response.Pagination;
+import com.hanghae99.wanted.web.dto.response.TagResponse;
 import com.hanghae99.wanted.web.entity.opening.Opening;
 import com.hanghae99.wanted.web.entity.opening.OpeningRepository;
 import com.hanghae99.wanted.web.entity.tag.Tag;
@@ -90,9 +91,14 @@ public class ApiOpeningService {
     @Transactional
     public OpeningApiDetailResponse findOpeningDetailById ( Long id ) {
         Opening opening = openingRepository.findById(id).orElseThrow(OpeningNotFoundException::new);
-        List<Tag> tags = tagRepository.findAllByOpeningId(id);
+        log.info("############ opening Content >>> {}", opening.getContent());
+        List<Tag> tags = tagRepository.findAllByOpening(opening);
 
-        return OpeningApiDetailResponse.of (opening, tags);
+        List<TagResponse> tagResponse = tags
+            .stream()
+            .map(TagResponse::of)
+            .collect(Collectors.toList());
+        return OpeningApiDetailResponse.of (opening, tagResponse);
     }
 
     private Pagination createPagination ( Page<?> openings ) {
