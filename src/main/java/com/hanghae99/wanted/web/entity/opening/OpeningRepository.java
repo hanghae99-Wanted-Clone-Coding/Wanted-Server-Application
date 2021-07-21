@@ -1,5 +1,6 @@
 package com.hanghae99.wanted.web.entity.opening;
 
+import com.hanghae99.wanted.util.enumclass.ReqCareer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,5 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface OpeningRepository extends JpaRepository<Opening, Long> {
     Page<Opening> findAllByJobGroupId ( Long jobGroup_id, Pageable pageable );
-    Page<Opening> findAllByReqCareer(String reqCareer, Pageable pageable);
+    Page<Opening> findAllByReqCareer( ReqCareer reqCareer, Pageable pageable);
 }

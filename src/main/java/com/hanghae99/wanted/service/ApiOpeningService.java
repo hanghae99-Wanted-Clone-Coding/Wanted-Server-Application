@@ -1,6 +1,7 @@
 package com.hanghae99.wanted.service;
 
 import com.hanghae99.wanted.exception.OpeningNotFoundException;
+import com.hanghae99.wanted.util.enumclass.ReqCareer;
 import com.hanghae99.wanted.web.dto.response.OpeningApiDetailResponse;
 import com.hanghae99.wanted.web.dto.response.OpeningApiPagingResponse;
 import com.hanghae99.wanted.web.dto.response.OpeningApiResponse;
@@ -60,7 +61,7 @@ public class ApiOpeningService {
      * 경력별 채용공고 조회
      */
     @Transactional(readOnly = true)
-    public OpeningApiPagingResponse findAllOpeningsByCareer ( String reqCareer, Pageable pageable ) {
+    public OpeningApiPagingResponse findAllOpeningsByCareer ( ReqCareer reqCareer, Pageable pageable ) {
         Page<Opening> openings = openingRepository.findAllByReqCareer(reqCareer, pageable);
         List<OpeningApiResponse> openingApiResponses = createOpeningApiResponses(openings);
         Pagination pagination = createPagination(openings);
