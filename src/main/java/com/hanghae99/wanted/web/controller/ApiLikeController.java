@@ -9,8 +9,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +35,13 @@ public class ApiLikeController {
     @PostMapping ("")
     public ResponseEntity<Void> doLike (@PathVariable("id") Long openingId, @AuthenticationPrincipal UserDetails userDetails){
         apiLikeService.doLike(openingId, userDetails);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping ("")
+    public ResponseEntity<Void> cancelLike(@PathVariable("id") Long openingId, @AuthenticationPrincipal UserDetails userDetails) {
+        apiLikeService.cancelLike(openingId, userDetails);
         return ResponseEntity.ok().build();
     }
 }
