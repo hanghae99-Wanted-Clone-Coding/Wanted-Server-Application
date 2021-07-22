@@ -24,7 +24,7 @@
 
 ## 사용 기술
 * FRONT-END: React, Redux, styled-components
-* BACK-END: JPA, JW토큰,
+* BACK-END: Spring Boot, Spring Security, JPA, JWT
 
 ## 서비스 기능 💁🏻‍♂️
 
