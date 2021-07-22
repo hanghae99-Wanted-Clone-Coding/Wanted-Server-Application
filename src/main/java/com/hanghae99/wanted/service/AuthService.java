@@ -1,7 +1,7 @@
 package com.hanghae99.wanted.service;
 
 import com.hanghae99.wanted.jwt.TokenProvider;
-import com.hanghae99.wanted.web.dto.TokenDto;
+import com.hanghae99.wanted.web.dto.response.TokenResponse;
 import com.hanghae99.wanted.web.dto.request.TokenRequest;
 import com.hanghae99.wanted.web.dto.request.UserRequest;
 import com.hanghae99.wanted.web.dto.response.UserResponse;
@@ -39,7 +39,7 @@ public class AuthService {
     }
 
     @Transactional
-    public TokenDto login(UserRequest userRequest) {
+    public TokenResponse login(UserRequest userRequest) {
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = userRequest.toAuthentication();
 
@@ -48,22 +48,22 @@ public class AuthService {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
-        TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
+        TokenResponse tokenResponse = tokenProvider.generateTokenDto(authentication);
 
         // 4. RefreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder()
                 .refresh_key(authentication.getName())
-                .refresh_value(tokenDto.getRefreshToken())
+                .refresh_value(tokenResponse.getRefreshToken())
                 .build();
 
         refreshTokenRepository.save(refreshToken);
 
         // 5. 토큰 발급
-        return tokenDto;
+        return tokenResponse;
     }
 
     @Transactional
-    public TokenDto reissue(TokenRequest tokenRequestDto) {
+    public TokenResponse reissue(TokenRequest tokenRequestDto) {
         // 1. Refresh Token 검증
         if (!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
             throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
@@ -82,13 +82,13 @@ public class AuthService {
         }
 
         // 5. 새로운 토큰 생성
-        TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
+        TokenResponse tokenResponse = tokenProvider.generateTokenDto(authentication);
 
         // 6. 저장소 정보 업데이트
-        RefreshToken newRefreshToken = refreshToken.updateValue(tokenDto.getRefreshToken());
+        RefreshToken newRefreshToken = refreshToken.updateValue(tokenResponse.getRefreshToken());
         refreshTokenRepository.save(newRefreshToken);
 
         // 토큰 발급
-        return tokenDto;
+        return tokenResponse;
     }
 }
