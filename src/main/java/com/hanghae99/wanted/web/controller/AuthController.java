@@ -1,7 +1,7 @@
 package com.hanghae99.wanted.web.controller;
 
 import com.hanghae99.wanted.service.AuthService;
-import com.hanghae99.wanted.web.dto.TokenDto;
+import com.hanghae99.wanted.web.dto.response.TokenResponse;
 import com.hanghae99.wanted.web.dto.request.TokenRequest;
 import com.hanghae99.wanted.web.dto.request.UserRequest;
 import com.hanghae99.wanted.web.dto.response.UserResponse;
@@ -24,12 +24,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<TokenResponse> login(@RequestBody UserRequest userRequest) {
         return ResponseEntity.ok(authService.login(userRequest));
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequest tokenRequest) {
+    public ResponseEntity<TokenResponse> reissue(@RequestBody TokenRequest tokenRequest) {
         return ResponseEntity.ok(authService.reissue(tokenRequest));
     }
 }
