@@ -27,9 +27,5 @@ public class AuthController {
     public ResponseEntity<TokenResponse> login(@RequestBody UserRequest userRequest) {
         return ResponseEntity.ok(authService.login(userRequest));
     }
-
-    @PostMapping("/reissue")
-    public ResponseEntity<TokenResponse> reissue(@RequestBody TokenRequest tokenRequest) {
-        return ResponseEntity.ok(authService.reissue(tokenRequest));
-    }
+    // refresh 토큰 삭제
 }
