@@ -55,9 +55,16 @@ public class UserService {
         String email = user.getEmail();
         String name = user.getName();
 
-        List<OpeningApiResponse> openingApiResponses = likeRepository.findAllByUser(user)
+        List<Like> likes = likeRepository.findAllByUser(user);
+
+        for (Like like : likes) {
+
+        }
+
+        List<OpeningApiResponse> openingApiResponses = likes
             .stream()
             .map(Like::getOpening)
+
             .map(OpeningApiResponse::of)
             .collect(Collectors.toList());
 

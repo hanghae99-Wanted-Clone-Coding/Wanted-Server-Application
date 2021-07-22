@@ -3,6 +3,7 @@ package com.hanghae99.wanted.web.entity.like;
 import com.hanghae99.wanted.web.entity.opening.Opening;
 import com.hanghae99.wanted.web.entity.user.User;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,4 +13,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface LikeRepository extends JpaRepository<Like, Long> {
 
     List<Like> findAllByUser ( User user);
+
+    List<Like> findByOpening (Opening opening);
+
+    Optional<Like> findByOpeningAndUser(Opening opening, User user);
 }

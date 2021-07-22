@@ -3,9 +3,7 @@ package com.hanghae99.wanted.service;
 import com.hanghae99.wanted.exception.OpeningNotFoundException;
 import com.hanghae99.wanted.util.enumclass.ReqCareer;
 import com.hanghae99.wanted.web.dto.response.OpeningApiDetailResponse;
-import com.hanghae99.wanted.web.dto.response.OpeningApiPagingResponse;
 import com.hanghae99.wanted.web.dto.response.OpeningApiResponse;
-import com.hanghae99.wanted.web.dto.response.Pagination;
 import com.hanghae99.wanted.web.dto.response.TagResponse;
 import com.hanghae99.wanted.web.entity.opening.Opening;
 import com.hanghae99.wanted.web.entity.opening.OpeningRepository;
@@ -37,45 +35,37 @@ public class ApiOpeningService {
      * 모든 채용공고 최신순 조회
      */
     @Transactional(readOnly = true)
-    public OpeningApiPagingResponse findAllOpeningUsePaging( Pageable pageable )  {
-        //TODO No enum constant com.hanghae99.wanted.util.enumclass.ReqCareer.career
-        Page<Opening> openings =  openingRepository.findAll(pageable);
-        List<OpeningApiResponse> openingApiResponses = createOpeningApiResponses(openings);
-        Pagination pagination = createPagination(openings);
-
-        return OpeningApiPagingResponse.of (pagination, openingApiResponses);
+    public List<OpeningApiResponse> findAllOpeningUsePaging(  )  {
+        List<Opening> openings =  openingRepository.findAll();
+        return createOpeningApiResponses(openings);
     }
 
     /**
      * Job Group 별 채용공고 조회
      */
     @Transactional(readOnly = true)
-    public OpeningApiPagingResponse findAllOpeningsByJobGroupId(Long id, Pageable pageable) {
-        Page<Opening> openings = openingRepository.findAllByJobGroupId(id, pageable);
-        List<OpeningApiResponse> openingApiResponses = createOpeningApiResponses(openings);
-        Pagination pagination = createPagination(openings);
+    public List<OpeningApiResponse> findAllOpeningsByJobGroupId(Long id) {
+        List<Opening> openings = openingRepository.findAllByJobGroupId(id);
 
-        return OpeningApiPagingResponse.of (pagination, openingApiResponses);
+        return createOpeningApiResponses(openings);
     }
 
     /**
      * 경력별 채용공고 조회
      */
     @Transactional(readOnly = true)
-    public OpeningApiPagingResponse findAllOpeningsByCareer ( ReqCareer reqCareer, Pageable pageable ) {
-        Page<Opening> openings = openingRepository.findAllByReqCareer(reqCareer, pageable);
-        List<OpeningApiResponse> openingApiResponses = createOpeningApiResponses(openings);
-        Pagination pagination = createPagination(openings);
+    public List<OpeningApiResponse> findAllOpeningsByCareer ( ReqCareer reqCareer ) {
+        List<Opening> openings = openingRepository.findAllByReqCareer(reqCareer);
 
-        return OpeningApiPagingResponse.of (pagination, openingApiResponses);
+        return createOpeningApiResponses(openings);
     }
 
     /**
      * 태그 이름 기반 Opening 검색
      */
     @Transactional(readOnly = true)
-    public OpeningApiPagingResponse findAllOpeningByTagName ( String name, Pageable pageable ) {
-        Page<Tag> tags = tagRepository.findAllByName(name, pageable);
+    public List<OpeningApiResponse> findAllOpeningByTagName ( String name ) {
+        List<Tag> tags = tagRepository.findAllByName(name);
 
         List<OpeningApiResponse> openingApiResponses = tags
             .stream()
@@ -83,15 +73,14 @@ public class ApiOpeningService {
             .map(OpeningApiResponse::of)
             .collect(Collectors.toList());
 
-        Pagination pagination = createPagination(tags);
-
-        return OpeningApiPagingResponse.of (pagination, openingApiResponses);
+        return openingApiResponses;
     }
 
     @Transactional
     public OpeningApiDetailResponse findOpeningDetailById ( Long id ) {
-        Opening opening = openingRepository.findById(id).orElseThrow(OpeningNotFoundException::new);
-        log.info("############ opening Content >>> {}", opening.getContent());
+        Opening opening = openingRepository.findById(id)
+            .orElseThrow(OpeningNotFoundException::new);
+
         List<Tag> tags = tagRepository.findAllByOpening(opening);
 
         List<TagResponse> tagResponse = tags
@@ -101,16 +90,8 @@ public class ApiOpeningService {
         return OpeningApiDetailResponse.of (opening, tagResponse);
     }
 
-    private Pagination createPagination ( Page<?> openings ) {
-        return Pagination.builder()
-            .totalPages(openings.getTotalPages())
-            .totalElements(openings.getTotalElements())
-            .currentPage(openings.getTotalPages())
-            .currentElements(openings.getNumberOfElements())
-            .build();
-    }
 
-    private List<OpeningApiResponse> createOpeningApiResponses ( Page<Opening> openings ) {
+    private List<OpeningApiResponse> createOpeningApiResponses ( List<Opening> openings ) {
         return openings
             .stream()
             .map(OpeningApiResponse::of)

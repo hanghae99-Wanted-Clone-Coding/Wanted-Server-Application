@@ -2,11 +2,14 @@ package com.hanghae99.wanted.web.dto.response;
 
 import com.hanghae99.wanted.web.entity.opening.Opening;
 import java.time.LocalDateTime;
+import java.util.stream.LongStream;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 /**
  * @Created by Bloo
@@ -19,6 +22,8 @@ public class OpeningApiResponse {
 
     private Long openingId;
     private Long jobGroupId;
+    @Setter
+    private Long likedId;
     private String imgUrl;
     private String title;
     private String companyName;
@@ -26,10 +31,11 @@ public class OpeningApiResponse {
     private int likeCount;
 
     @Builder
-    public OpeningApiResponse ( Long openingId, Long jobGroupId, String imgUrl, String title,
+    public OpeningApiResponse ( Long openingId, Long jobGroupId, Long likedId, String imgUrl, String title,
         String companyName, String location, int likeCount ) {
         this.openingId = openingId;
         this.jobGroupId = jobGroupId;
+        this.likedId = likedId;
         this.imgUrl = imgUrl;
         this.title = title;
         this.companyName = companyName;
