@@ -30,10 +30,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-         //CSRF 설정 Disable
+        //CSRF 설정 Disable
         http.csrf().disable();
-                // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
+        // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
 //                .addFilter(corsConfig.corsFilter());
+
+        http.headers()
+                .frameOptions()
+                .sameOrigin();
 
         http.exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
