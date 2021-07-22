@@ -34,9 +34,8 @@ public class ApiOpeningController {
      * 채용공지 최신 순 조회
      */
     @GetMapping ("/api/openings")
-    public ResponseEntity<List<OpeningApiResponse>> findAllOpeningUsePaging (
-        @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
-        return ResponseEntity.ok().body(openingService.findAllOpeningUsePaging(pageable));
+    public ResponseEntity<List<OpeningApiResponse>> findAllOpeningUsePaging () {
+        return ResponseEntity.ok().body(openingService.findAllOpeningUsePaging());
     }
 
     /**
@@ -45,10 +44,9 @@ public class ApiOpeningController {
      */
     @GetMapping ("/api/jobgroup/{jobgroup-id}")
     public ResponseEntity<List<OpeningApiResponse>> findAllOpeningsByJobGroupId (
-        @PathVariable (name = "jobgroup-id") Long id,
-        @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
+        @PathVariable (name = "jobgroup-id") Long id) {
         log.info("Job Group Id >>> {}", id);
-        return ResponseEntity.ok().body(openingService.findAllOpeningsByJobGroupId(id, pageable));
+        return ResponseEntity.ok().body(openingService.findAllOpeningsByJobGroupId(id));
     }
 
     /**
@@ -57,12 +55,10 @@ public class ApiOpeningController {
      *
      */
     @GetMapping ("/api/career")
-    public ResponseEntity<List<OpeningApiResponse>> findAllOpeningsByCareer (
-        @RequestParam ("career") ReqCareer reqCareer,
-        @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
+    public ResponseEntity<List<OpeningApiResponse>> findAllOpeningsByCareer ( @RequestParam ("career") ReqCareer reqCareer) {
 
         log.info("Req Career >>> {}", reqCareer);
-        return ResponseEntity.ok().body(openingService.findAllOpeningsByCareer(reqCareer, pageable));
+        return ResponseEntity.ok().body(openingService.findAllOpeningsByCareer(reqCareer));
     }
 
     /**
@@ -71,10 +67,9 @@ public class ApiOpeningController {
      */
     @GetMapping("/api/search")
     public ResponseEntity<List<OpeningApiResponse>> findAllOpeningsByTag(
-        @RequestParam("tagName") String tagName,
-        @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
+        @RequestParam("tagName") String tagName) {
         log.info("Tag Name >>> {}", tagName);
-        return ResponseEntity.ok().body(openingService.findAllOpeningByTagName(tagName, pageable));
+        return ResponseEntity.ok().body(openingService.findAllOpeningByTagName(tagName));
     }
 
     /**

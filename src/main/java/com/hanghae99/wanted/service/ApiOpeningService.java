@@ -35,10 +35,8 @@ public class ApiOpeningService {
      * 모든 채용공고 최신순 조회
      */
     @Transactional(readOnly = true)
-    public List<OpeningApiResponse> findAllOpeningUsePaging( Pageable pageable )  {
-        //TODO No enum constant com.hanghae99.wanted.util.enumclass.ReqCareer.career
-        Page<Opening> openings =  openingRepository.findAll(pageable);
-
+    public List<OpeningApiResponse> findAllOpeningUsePaging(  )  {
+        List<Opening> openings =  openingRepository.findAll();
         return createOpeningApiResponses(openings);
     }
 
@@ -46,9 +44,8 @@ public class ApiOpeningService {
      * Job Group 별 채용공고 조회
      */
     @Transactional(readOnly = true)
-    public List<OpeningApiResponse> findAllOpeningsByJobGroupId(Long id, Pageable pageable) {
-        Page<Opening> openings = openingRepository.findAllByJobGroupId(id, pageable);
-        List<OpeningApiResponse> openingApiResponses = createOpeningApiResponses(openings);
+    public List<OpeningApiResponse> findAllOpeningsByJobGroupId(Long id) {
+        List<Opening> openings = openingRepository.findAllByJobGroupId(id);
 
         return createOpeningApiResponses(openings);
     }
@@ -57,8 +54,8 @@ public class ApiOpeningService {
      * 경력별 채용공고 조회
      */
     @Transactional(readOnly = true)
-    public List<OpeningApiResponse> findAllOpeningsByCareer ( ReqCareer reqCareer, Pageable pageable ) {
-        Page<Opening> openings = openingRepository.findAllByReqCareer(reqCareer, pageable);
+    public List<OpeningApiResponse> findAllOpeningsByCareer ( ReqCareer reqCareer ) {
+        List<Opening> openings = openingRepository.findAllByReqCareer(reqCareer);
 
         return createOpeningApiResponses(openings);
     }
@@ -67,8 +64,8 @@ public class ApiOpeningService {
      * 태그 이름 기반 Opening 검색
      */
     @Transactional(readOnly = true)
-    public List<OpeningApiResponse> findAllOpeningByTagName ( String name, Pageable pageable ) {
-        Page<Tag> tags = tagRepository.findAllByName(name, pageable);
+    public List<OpeningApiResponse> findAllOpeningByTagName ( String name ) {
+        List<Tag> tags = tagRepository.findAllByName(name);
 
         List<OpeningApiResponse> openingApiResponses = tags
             .stream()
@@ -81,8 +78,9 @@ public class ApiOpeningService {
 
     @Transactional
     public OpeningApiDetailResponse findOpeningDetailById ( Long id ) {
-        Opening opening = openingRepository.findById(id).orElseThrow(OpeningNotFoundException::new);
-        log.info("############ opening Content >>> {}", opening.getContent());
+        Opening opening = openingRepository.findById(id)
+            .orElseThrow(OpeningNotFoundException::new);
+
         List<Tag> tags = tagRepository.findAllByOpening(opening);
 
         List<TagResponse> tagResponse = tags
@@ -93,7 +91,7 @@ public class ApiOpeningService {
     }
 
 
-    private List<OpeningApiResponse> createOpeningApiResponses ( Page<Opening> openings ) {
+    private List<OpeningApiResponse> createOpeningApiResponses ( List<Opening> openings ) {
         return openings
             .stream()
             .map(OpeningApiResponse::of)
