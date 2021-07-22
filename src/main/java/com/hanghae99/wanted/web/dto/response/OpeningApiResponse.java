@@ -23,19 +23,17 @@ public class OpeningApiResponse {
     private String title;
     private String companyName;
     private String location;
-    private boolean liked;
     private int likeCount;
 
     @Builder
     public OpeningApiResponse ( Long openingId, Long jobGroupId, String imgUrl, String title,
-        String companyName, String location, boolean liked, int likeCount ) {
+        String companyName, String location, int likeCount ) {
         this.openingId = openingId;
         this.jobGroupId = jobGroupId;
         this.imgUrl = imgUrl;
         this.title = title;
         this.companyName = companyName;
         this.location = location;
-        this.liked = liked;
         this.likeCount = likeCount;
     }
 
@@ -48,7 +46,6 @@ public class OpeningApiResponse {
             .title(opening.getTitle())
             .companyName(opening.getCompany().getName())
             .location(opening.getCompany().getAddress())
-            .liked(opening.isLiked())
             .likeCount(opening.getLikeCount())
             .build();
     }

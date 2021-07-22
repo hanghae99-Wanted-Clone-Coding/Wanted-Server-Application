@@ -41,7 +41,6 @@ public class ApiLikeService {
             .orElseThrow(OpeningNotFoundException::new);
 
         opening.increaseLikeCnt();
-        opening.doLike();
 
         Like like = Like.builder()
             .opening(opening)
