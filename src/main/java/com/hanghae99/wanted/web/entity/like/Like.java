@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Getter
 @Table(name = "LIKE_TB")
 public class Like extends BaseTimeEntity {
 
