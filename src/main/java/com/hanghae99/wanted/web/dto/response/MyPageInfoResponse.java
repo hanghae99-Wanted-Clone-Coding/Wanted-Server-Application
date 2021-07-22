@@ -16,9 +16,10 @@ import lombok.NoArgsConstructor;
 public class MyPageInfoResponse {
 
     private String email;
+    private String name;
     private List<OpeningApiResponse> openingApiResponses;
 
-    public static MyPageInfoResponse of (String email, List<OpeningApiResponse> openingApiResponses) {
-        return new MyPageInfoResponse(email, openingApiResponses);
+    public static MyPageInfoResponse of (String email, String name, List<OpeningApiResponse> openingApiResponses) {
+        return new MyPageInfoResponse(email, name, openingApiResponses);
     }
 }
