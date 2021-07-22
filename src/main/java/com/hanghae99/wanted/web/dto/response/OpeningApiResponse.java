@@ -26,9 +26,8 @@ public class OpeningApiResponse {
     private int likeCount;
 
     @Builder
-    public OpeningApiResponse (Long openingId, Long jobGroupId,
-        String imgUrl, String title, String companyName, String location, int likeCount) {
-
+    public OpeningApiResponse ( Long openingId, Long jobGroupId, String imgUrl, String title,
+        String companyName, String location, int likeCount ) {
         this.openingId = openingId;
         this.jobGroupId = jobGroupId;
         this.imgUrl = imgUrl;
@@ -37,6 +36,7 @@ public class OpeningApiResponse {
         this.location = location;
         this.likeCount = likeCount;
     }
+
 
     public static OpeningApiResponse of ( Opening opening ) {
         return OpeningApiResponse.builder()

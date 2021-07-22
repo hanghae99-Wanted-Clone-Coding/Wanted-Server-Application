@@ -71,4 +71,8 @@ public class Opening extends BaseTimeEntity {
         this.company = company;
         this.jobGroup = jobGroup;
     }
+
+    public void increaseLikeCnt () {
+        this.likeCount += 1;
+    }
 }
