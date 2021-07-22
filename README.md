@@ -22,7 +22,7 @@
 * 김창환 : 입력해주세요
 
 
-## 사용 기술
+## 사용 기술 🏃🏼‍♀️
 * FRONT-END: React, Redux, styled-components
 * BACK-END: Spring Boot, Spring Security, JPA, JWT
 
