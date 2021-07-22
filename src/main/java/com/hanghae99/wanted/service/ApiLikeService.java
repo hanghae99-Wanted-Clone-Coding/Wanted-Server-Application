@@ -7,6 +7,7 @@ import com.hanghae99.wanted.web.entity.opening.Opening;
 import com.hanghae99.wanted.web.entity.opening.OpeningRepository;
 import com.hanghae99.wanted.web.entity.user.User;
 import com.hanghae99.wanted.web.entity.user.UserRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,5 +49,18 @@ public class ApiLikeService {
             .build();
 
         likeRepository.save(like);
+    }
+
+    @Transactional
+    public void cancelLike ( Long openingId, UserDetails userDetails ) {
+        String userId = userDetails.getUsername();
+        Long id = Long.parseLong(userId);
+
+        User user = userRepository.findById(id).get();
+
+        Opening opening = openingRepository.findById(openingId)
+            .orElseThrow(OpeningNotFoundException::new);
+
+        List<Like> likes = likeRepository.findByOpening(opening);
     }
 }
