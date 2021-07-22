@@ -8,6 +8,7 @@ import com.hanghae99.wanted.web.entity.opening.OpeningRepository;
 import com.hanghae99.wanted.web.entity.user.User;
 import com.hanghae99.wanted.web.entity.user.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -61,6 +62,11 @@ public class ApiLikeService {
         Opening opening = openingRepository.findById(openingId)
             .orElseThrow(OpeningNotFoundException::new);
 
-        List<Like> likes = likeRepository.findByOpening(opening);
+        Optional<Like> like = likeRepository.findByOpeningAndUser(opening, user);
+
+        if ( like.isPresent() ) {
+            Like like1 = like.get();
+            likeRepository.delete(like1);
+        }
     }
 }
