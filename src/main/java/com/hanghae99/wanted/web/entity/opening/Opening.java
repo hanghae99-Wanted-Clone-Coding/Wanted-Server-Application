@@ -75,4 +75,7 @@ public class Opening extends BaseTimeEntity {
     public void increaseLikeCnt () {
         this.likeCount += 1;
     }
+    public void decreaseLikeCnt () {
+        this.likeCount -= 1;
+    }
 }

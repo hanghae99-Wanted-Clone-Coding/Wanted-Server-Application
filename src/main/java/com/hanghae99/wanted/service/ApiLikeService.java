@@ -66,6 +66,7 @@ public class ApiLikeService {
 
         if ( like.isPresent() ) {
             Like like1 = like.get();
+            opening.decreaseLikeCnt();
             likeRepository.delete(like1);
         }
     }
