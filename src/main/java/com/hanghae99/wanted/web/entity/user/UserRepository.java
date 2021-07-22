@@ -1,5 +1,6 @@
 package com.hanghae99.wanted.web.entity.user;
 
+import java.util.List;
 import javax.jws.soap.SOAPBinding.Use;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -16,4 +17,5 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByEmail(String email);
     Boolean existsByEmail(String email);
+    Optional<User> findById (Long id);
 }

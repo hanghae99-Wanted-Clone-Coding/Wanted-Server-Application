@@ -46,6 +46,9 @@ public class Opening extends BaseTimeEntity {
     @Column (nullable = false, name = "LOCATION_DETAIL")
     private String locationDetail;
 
+    @Column (nullable = false, name = "IS_LIKED")
+    private boolean liked;
+
     @Column (nullable = false, name = "LIKE_CNT")
     private int likeCount;
 
@@ -67,8 +70,21 @@ public class Opening extends BaseTimeEntity {
         this.imgUrl = imgUrl;
         this.location = location;
         this.locationDetail = locationDetail;
+        this.liked = false;
         this.likeCount = likeCount;
         this.company = company;
         this.jobGroup = jobGroup;
+    }
+
+    public void increaseLikeCnt () {
+        this.likeCount += 1;
+    }
+
+    public void doLike() {
+        this.liked = true;
+    }
+
+    public void cancelLike() {
+        this.liked = false;
     }
 }
