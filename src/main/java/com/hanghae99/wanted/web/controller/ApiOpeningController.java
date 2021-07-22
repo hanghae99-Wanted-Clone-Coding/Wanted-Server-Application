@@ -3,7 +3,8 @@ package com.hanghae99.wanted.web.controller;
 import com.hanghae99.wanted.service.ApiOpeningService;
 import com.hanghae99.wanted.util.enumclass.ReqCareer;
 import com.hanghae99.wanted.web.dto.response.OpeningApiDetailResponse;
-import com.hanghae99.wanted.web.dto.response.OpeningApiPagingResponse;
+import com.hanghae99.wanted.web.dto.response.OpeningApiResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +34,7 @@ public class ApiOpeningController {
      * 채용공지 최신 순 조회
      */
     @GetMapping ("/api/openings")
-    public ResponseEntity<OpeningApiPagingResponse> findAllOpeningUsePaging (
+    public ResponseEntity<List<OpeningApiResponse>> findAllOpeningUsePaging (
         @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
         return ResponseEntity.ok().body(openingService.findAllOpeningUsePaging(pageable));
     }
@@ -43,7 +44,7 @@ public class ApiOpeningController {
      * 성공
      */
     @GetMapping ("/api/jobgroup/{jobgroup-id}")
-    public ResponseEntity<OpeningApiPagingResponse> findAllOpeningsByJobGroupId (
+    public ResponseEntity<List<OpeningApiResponse>> findAllOpeningsByJobGroupId (
         @PathVariable (name = "jobgroup-id") Long id,
         @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
         log.info("Job Group Id >>> {}", id);
@@ -56,7 +57,7 @@ public class ApiOpeningController {
      *
      */
     @GetMapping ("/api/career")
-    public ResponseEntity<OpeningApiPagingResponse> findAllOpeningsByCareer (
+    public ResponseEntity<List<OpeningApiResponse>> findAllOpeningsByCareer (
         @RequestParam ("career") ReqCareer reqCareer,
         @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
 
@@ -69,7 +70,7 @@ public class ApiOpeningController {
      *
      */
     @GetMapping("/api/search")
-    public ResponseEntity<OpeningApiPagingResponse> findAllOpeningsByTag(
+    public ResponseEntity<List<OpeningApiResponse>> findAllOpeningsByTag(
         @RequestParam("tagName") String tagName,
         @PageableDefault (size = 20, sort = { "createdAt" }, direction = Direction.DESC) Pageable pageable ) {
         log.info("Tag Name >>> {}", tagName);
