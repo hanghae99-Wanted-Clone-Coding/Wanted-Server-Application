@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,8 @@ import lombok.NoArgsConstructor;
  * @author Bloo
  * @author Seungyeon Kang
  */
+
+@EqualsAndHashCode(of = "name")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
