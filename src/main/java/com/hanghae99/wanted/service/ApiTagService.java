@@ -36,6 +36,7 @@ public class ApiTagService {
 
         return tagRepository.findAllByTagCategory(tagCategory)
             .stream()
+            .distinct()
             .map(TagResponse::of)
             .collect(Collectors.toList());
     }
