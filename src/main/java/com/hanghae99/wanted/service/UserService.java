@@ -53,6 +53,7 @@ public class UserService {
 
         User user = userRepository.findById(id).get();
         String email = user.getEmail();
+        String name = user.getName();
 
         List<OpeningApiResponse> openingApiResponses = likeRepository.findAllByUser(user)
             .stream()
@@ -60,6 +61,6 @@ public class UserService {
             .map(OpeningApiResponse::of)
             .collect(Collectors.toList());
 
-        return MyPageInfoResponse.of (email, openingApiResponses);
+        return MyPageInfoResponse.of (email, name, openingApiResponses);
     }
 }
